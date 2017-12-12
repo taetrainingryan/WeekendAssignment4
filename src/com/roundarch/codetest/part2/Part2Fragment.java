@@ -2,6 +2,7 @@ package com.roundarch.codetest.part2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,8 +57,28 @@ public class Part2Fragment extends Fragment {
         // TODO - package up the data model and provide it to the new EditActivity as it is being created
         Intent intent = new Intent(this.getActivity(), EditActivity.class);
 
+        mModel.setText1(textView1.getText().toString());
+        mModel.setText2(textView2.getText().toString());
+        mModel.setText3(Double.valueOf(textView3.getText().toString()));
+
+        intent.putExtra("data", mModel);
+
         // TODO - this probably isn't the best way to start the EditActivty, try to fix it
-        startActivity(intent);
+        //startActivity(intent);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Bundle bundle = data.getExtras();
+
+        DataModel newData = (DataModel) bundle.get("newData");
+        textView1.setText(newData.getText1());
+        textView2.setText(newData.getText2());
+        textView3.setText(String.valueOf(newData.getText3()));
+
     }
 
     // TODO - provide a method to obtain the data model when it is returned from the EditActivity

@@ -50,8 +50,11 @@ public class Part1Fragment extends Fragment {
         switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                bar1.setProgress(50);
-                bar2.setProgress(50);
+
+                if(isChecked) {
+                    bar1.setProgress(50);
+                    bar2.setProgress(50);
+                }
             }
         });
 
